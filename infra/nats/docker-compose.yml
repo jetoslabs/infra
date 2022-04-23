@@ -8,20 +8,26 @@ services:
       - "4222:4222"
       - "6222:6222"
       - "8222:8222"
-    command: "--name nats --cluster_name NATS --cluster nats://0.0.0.0:6222 --http_port 8222"
+    command: "--name nats --jetstream -sd /data --cluster_name NATS --cluster nats://0.0.0.0:6222 --http_port 8222 --routes=nats://ruser:T0pS3cr3t@nats:6222"
     networks: ["nats"]
+    volumes:
+      - ./jetstream-cluster/nats:/data
   nats-1:
     container_name: nats-1
     image: nats
-    command: "--name nats-1 --cluster_name NATS --cluster nats://0.0.0.0:6222 --routes=nats://ruser:T0pS3cr3t@nats:6222"
+    command: "--name nats-1 --jetstream -sd /data --cluster_name NATS --cluster nats://0.0.0.0:6222 --routes=nats://ruser:T0pS3cr3t@nats:6222"
     networks: ["nats"]
     depends_on: ["nats"]
+    volumes:
+      - ./jetstream-cluster/nats-1:/data
   nats-2:
     container_name: nats-2
     image: nats
-    command: "--name nats-2 --cluster_name NATS --cluster nats://0.0.0.0:6222 --routes=nats://ruser:T0pS3cr3t@nats:6222"
+    command: "--name nats-2 --jetstream -sd /data --cluster_name NATS --cluster nats://0.0.0.0:6222 --routes=nats://ruser:T0pS3cr3t@nats:6222"
     networks: ["nats"]
     depends_on: ["nats"]
+    volumes:
+      - ./jetstream-cluster/nats-2:/data
 
 networks:
   nats:
