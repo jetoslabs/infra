@@ -1,8 +1,11 @@
 #https://docs.ipfs.io/how-to/run-ipfs-inside-docker/#set-up
-version: '3'
+#https://docs.ipfs.io/how-to/command-line-quick-start
+#http://0.0.0.0:5001/webui
+#curl -X POST -F file=@docker-compose.yml "http://127.0.0.1:5001/api/v0/add"
+version: '3.8'
 services:
   ipfs:
-    image: ipfs/go-ipfs:latest
+    image: ipfs/kubo
     environment:
       - IPFS_PROFILE=server
       - IPFS_PATH=/ipfsdata

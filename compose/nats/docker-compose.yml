@@ -31,4 +31,4 @@ services:
 
 networks:
   nats:
-    name: infra
+    name: jetos-bridge
